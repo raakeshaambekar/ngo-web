@@ -15,7 +15,7 @@ export default function DonateButton() {
   };
 
   return (
-    <button onClick={donate} className="bg-red-600 text-white px-6 py-3 rounded">
+    <button className="bg-white text-[#C62828] font-semibold px-8 py-3 rounded-full hover:bg-[#FFF4CC] transition">
       Donate Now
     </button>
   );
