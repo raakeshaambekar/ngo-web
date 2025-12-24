@@ -202,8 +202,8 @@ export default function Home({
      
 
       {/* HERO */}
-      <section
-        className="text-white py-16"
+      <section id="about"
+        className="text-white py-16 scroll-mt-24"
         style={{
           background: "linear-gradient(90deg, #C62828 0%, #D4AF37 100%)",
         }}
@@ -224,7 +224,13 @@ export default function Home({
       {/* PROGRAMS */}
         <section id="programs" className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl font-semibold text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
+              style={{
+                background: "linear-gradient(90deg, #C62828, #B8860B)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
             {PROGRAMS_CONTENT[params.lang].sectionTitle}
             </h2>
 
@@ -259,7 +265,13 @@ export default function Home({
 
     <section id="news" className="py-20 bg-gray-100">
         <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl font-semibold text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
+              style={{
+                background: "linear-gradient(90deg, #C62828, #B8860B)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
             {NEWS_CONTENT[params.lang].sectionTitle}
             </h2>
 
@@ -286,7 +298,13 @@ export default function Home({
   style={{ backgroundColor: "#FFF8F2" }}
 >
   <div className="max-w-6xl mx-auto px-6">
-    <h2 className="text-3xl font-semibold text-center mb-16">
+    <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
+      style={{
+        background: "linear-gradient(90deg, #C62828, #B8860B)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
       {CONTACT_CONTENT[params.lang].sectionTitle}
     </h2>
 

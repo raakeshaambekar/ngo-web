@@ -48,10 +48,10 @@ export default function Header({ lang }: { lang: "en" | "mr" }) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <Link href={`/${lang}/programs`}>{t.programs}</Link>
-            <Link href={`/${lang}/news`}>{t.news}</Link>
-            <Link href={`/${lang}/about`}>{t.about}</Link>
-            <Link href={`/${lang}/contact`}>{t.contact}</Link>
+            <Link href={`/${lang}#programs`}>{t.programs}</Link>
+            <Link href={`/${lang}#news`}>{t.news}</Link>
+            <Link href={`/${lang}#about`}>{t.about}</Link>
+            <Link href={`/${lang}#contact`}>{t.contact}</Link>
 
             <Link
               href={`/${lang === "en" ? "mr" : "en"}`}
@@ -77,10 +77,10 @@ export default function Header({ lang }: { lang: "en" | "mr" }) {
 
       {open && (
         <div className="md:hidden border-t px-6 py-4 space-y-4">
-          <Link href={`/${lang}/programs`}>{t.programs}</Link>
-          <Link href={`/${lang}/news`}>{t.news}</Link>
-          <Link href={`/${lang}/about`}>{t.about}</Link>
-          <Link href={`/${lang}/contact`}>{t.contact}</Link>
+          <Link href={`/${lang}#programs`}>{t.programs}</Link>
+          <Link href={`/${lang}#news`}>{t.news}</Link>
+          <Link href={`/${lang}#about`}>{t.about}</Link>
+          <Link href={`/${lang}#contact`}>{t.contact}</Link>
         </div>
       )}
     </header>
