@@ -26,7 +26,7 @@ const TEXT = {
 };
 
 export default function Header({ lang }: { lang: "en" | "mr" }) {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const t = TEXT[lang];
 
   return (
@@ -69,20 +69,66 @@ export default function Header({ lang }: { lang: "en" | "mr" }) {
           </nav>
 
           {/* Mobile */}
-          <button onClick={() => setOpen(!open)} className="md:hidden text-xl">
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-gray-800"
+  aria-label="Toggle menu">
             ☰
           </button>
         </div>
       </div>
 
-      {open && (
-        <div className="md:hidden border-t px-6 py-4 space-y-4">
-          <Link href={`/${lang}#programs`}>{t.programs}</Link>
-          <Link href={`/${lang}#news`}>{t.news}</Link>
-          <Link href={`/${lang}#about`}>{t.about}</Link>
-          <Link href={`/${lang}#contact`}>{t.contact}</Link>
-        </div>
-      )}
+      {/* Mobile Menu */}
+      {isOpen && (
+      <div className="md:hidden border-t border-gray-200 bg-white">
+        <nav className="flex flex-col px-6 py-4 space-y-4">
+
+          {/* Navigation Links */}
+          <Link
+            href={`/${lang}#programs`}
+            className="block text-gray-800 font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            {t.programs}
+          </Link>
+
+          <Link
+            href={`/${lang}#news`}
+            className="block text-gray-800 font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            {t.news}
+          </Link>
+
+          <Link
+            href={`/${lang}#about`}
+            className="block text-gray-800 font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            {t.about}
+          </Link>
+
+          <Link
+            href={`/${lang}#contact`}
+            className="block text-gray-800 font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            {t.contact}
+          </Link>
+
+          {/* Divider */}
+          <div className="border-t pt-1" />
+
+          {/* Language Switch */}
+          <Link
+            href={`/${lang === "en" ? "mr" : "en"}`}
+            className="inline-flex items-center justify-center border border-gray-300 px-4 py-2 rounded-md text-sm font-medium text-gray-700 w-fit"
+            onClick={() => setIsOpen(false)}
+          >
+            {lang === "en" ? "मराठी" : "English"}
+          </Link>
+
+        </nav>
+      </div>
+    )}
     </header>
   );
 }

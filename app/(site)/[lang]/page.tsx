@@ -1,5 +1,9 @@
 
 import DonateButton from "../../../components/DonateButton";
+import Link from "next/link";
+import Image from "next/image";
+import { getPrograms } from "../../../lib/program";
+import { getNews } from "../../../lib/news";
 
 const HERO_CONTENT = {
   en: {
@@ -19,19 +23,25 @@ const PROGRAMS_CONTENT = {
     sectionTitle: "Our Core Programs",
     items: [
       {
+        slug:"education-support",
         title: "Education Support",
-        description:
+        excerpt:
           "Financial assistance, scholarships, and educational support for deserving students from the Deshastha Maratha community.",
+        thumbnail: "/programs/education.jpg",
       },
       {
+        slug:"social-health-assistance",
         title: "Social & Healthcare Assistance",
-        description:
+        excerpt:
           "Medical assistance and social support during health emergencies and difficult life situations.",
+        thumbnail: "/programs/healthcare.jpg",
       },
       {
+        slug:"cultural-community-development",
         title: "Cultural & Community Development",
-        description:
+        excerpt:
           "Preservation of cultural traditions, religious activities, and initiatives that strengthen community unity.",
+        thumbnail: "/programs/culture.jpg"
       },
     ],
   },
@@ -39,19 +49,25 @@ const PROGRAMS_CONTENT = {
     sectionTitle: "आमचे मुख्य उपक्रम",
     items: [
       {
+        slug:"education-support",
         title: "शैक्षणिक सहाय्य",
-        description:
+        excerpt:
           "देशस्थ मराठा समाजातील गरजू विद्यार्थ्यांना शैक्षणिक मदत, शिष्यवृत्ती व शिक्षणासाठी आर्थिक सहाय्य.",
+        thumbnail: "/programs/education.jpg", 
       },
       {
+        slug:"social-health-assistance",
         title: "आरोग्य व सामाजिक सहाय्य",
-        description:
+        excerpt:
           "आजारपण, आपत्कालीन परिस्थिती व सामाजिक अडचणींमध्ये समाजबांधवांना मदत.",
+        thumbnail: "/programs/healthcare.jpg",
       },
       {
+        slug:"cultural-community-development",
         title: "सांस्कृतिक व सामाजिक विकास",
-        description:
+        excerpt:
           "धार्मिक, सांस्कृतिक उपक्रम, परंपरा जतन व समाजातील एकता वृद्धिंगत करण्याचे कार्य.",
+        thumbnail: "/programs/culture.jpg",
       },
     ],
   },
@@ -98,21 +114,27 @@ const NEWS_CONTENT = {
     items: [
       {
         date: "2024–2025",
+        slug: "annual-general-meeting",
         title: "Annual General Meeting Conducted",
-        summary:
+        excerpt:
           "The Annual General Meeting was conducted in accordance with statutory guidelines, reviewing organizational activities and future plans.",
+        thumbnail: "/news/agm.jpg",
       },
       {
         date: "2024–2025",
+        slug: "audit-finance-report",
         title: "Audited Financial Report Approved",
-        summary:
+        excerpt:
           "The audited income and expenditure report for the year was presented and approved by members.",
+        thumbnail: "/news/afr.png",
       },
       {
         date: "2024–2025",
+        slug: "executive-committee-announced",
         title: "Executive Committee Announced",
-        summary:
+        excerpt:
           "The executive committee and office bearers for the current term were formally announced.",
+        thumbnail: "/news/ecf.jpg",
       },
     ],
   },
@@ -121,21 +143,27 @@ const NEWS_CONTENT = {
     items: [
       {
         date: "२०२४–२०२५",
+        slug: "annual-general-meeting",
         title: "वार्षिक सर्वसाधारण सभा पार पडली",
-        summary:
+        excerpt:
           "नियमानुसार वार्षिक सर्वसाधारण सभा पार पडून संस्थेच्या कार्याचा व भावी योजनांचा आढावा घेण्यात आला.",
+        thumbnail: "/news/agm.jpg",
       },
       {
         date: "२०२४–२०२५",
+        slug: "audit-finance-report",
         title: "लेखापरीक्षित आर्थिक अहवाल मंजूर",
-        summary:
+        excerpt:
           "संस्थेचा लेखापरीक्षित जमा-खर्च अहवाल सभासदांनी मंजूर केला.",
+        thumbnail: "/news/afr.png",
       },
       {
         date: "२०२४–२०२५",
+        slug: "executive-committee-announced",
         title: "नवीन कार्यकारिणी जाहीर",
-        summary:
+        excerpt:
           "चालू कार्यकाळासाठी संस्थेची कार्यकारिणी व पदाधिकारी जाहीर करण्यात आले.",
+        thumbnail: "/news/ecf.jpg",
       },
     ],
   },
@@ -190,12 +218,14 @@ const DONATE_CONTENT = {
 
 
 
-export default function Home({
+export default async function Home({
   params,
 }: {
   params: { lang: "en" | "mr" };
 }) {
   const hero = HERO_CONTENT[params.lang];
+  const programs = await getPrograms();
+  const news = await getNews();
 
   return (
     <>
@@ -203,7 +233,7 @@ export default function Home({
 
       {/* HERO */}
       <section id="about"
-        className="text-white py-16 scroll-mt-24"
+        className="text-white py-12 scroll-mt-24"
         style={{
           background: "linear-gradient(90deg, #C62828 0%, #D4AF37 100%)",
         }}
@@ -222,7 +252,7 @@ export default function Home({
       </section>
 
       {/* PROGRAMS */}
-        <section id="programs" className="py-20 bg-gray-50">
+        <section id="programs" className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
               style={{
@@ -237,9 +267,12 @@ export default function Home({
             <div className="grid md:grid-cols-3 gap-8">
             {PROGRAMS_CONTENT[params.lang].items.map((program, index) => (
                 <ProgramCard
-                key={index}
-                title={program.title}
-                description={program.description}
+                  key={program.slug}
+                  lang={params.lang}
+                  slug={program.slug}
+                  title={program.title}
+                  excerpt={program.excerpt}
+                  thumbnail={program.thumbnail}
                 />
             ))}
             </div>
@@ -248,7 +281,7 @@ export default function Home({
 
       {/* IMPACT STRIP */}
       
-    <section id="impact" className="bg-red-50 py-16">
+    <section id="impact" className="bg-red-50 py-12">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
             {IMPACT_CONTENT[params.lang].items.map((item, index) => (
             <ImpactStat
@@ -263,7 +296,7 @@ export default function Home({
 
       {/* NEWS */}
 
-    <section id="news" className="py-20 bg-gray-100">
+    <section id="news" className="py-12 bg-gray-100">
         <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
               style={{
@@ -278,10 +311,13 @@ export default function Home({
             <div className="grid md:grid-cols-3 gap-8">
             {NEWS_CONTENT[params.lang].items.map((item, index) => (
                 <NewsCard
-                key={index}
+                key={item.slug}
+                lang={params.lang}
+                slug={item.slug}
                 date={item.date}
                 title={item.title}
-                summary={item.summary}
+                excerpt={item.excerpt}
+                thumbnail={item.thumbnail}
                 />
             ))}
             </div>
@@ -294,7 +330,7 @@ export default function Home({
     {/* CONTACT US */}
 <section
   id="contact"
-  className="py-20"
+  className="py-12"
   style={{ backgroundColor: "#FFF8F2" }}
 >
   <div className="max-w-6xl mx-auto px-6">
@@ -364,7 +400,7 @@ export default function Home({
       {/* DONATE CTA */}
 <section
   id="donate"
-  className="py-20 text-white text-center"
+  className="py-12 text-white text-center"
   style={{
     background: "linear-gradient(90deg, #C62828 0%, #D4AF37 100%)",
   }}
@@ -388,26 +424,120 @@ export default function Home({
   );
 }
 
-/* ---------- Components ---------- */
-
-function ProgramCard({ title, description }: any) {
+function ProgramCard({
+  lang,
+  slug,
+  title,
+  excerpt,
+  thumbnail,
+}: {
+  lang: "en" | "mr";
+  slug: string;
+  title: string;
+  excerpt: string;
+  thumbnail: string;
+}) {
   return (
-    <div className="bg-white border rounded-xl p-8 shadow-sm hover:shadow-md transition">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </div>
+    <Link
+      href={`/${lang}/programs/${slug}`}
+      className="group bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+    >
+      {/* Image */}
+      <div className="relative h-44 w-full overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          placeholder="blur"
+          blurDataURL="/placeholder-blur.png"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-1">
+        <h3 className="text-lg font-semibold mb-3">
+          {title}
+        </h3>
+
+        <p className="text-gray-600 text-sm leading-relaxed">
+          {excerpt}
+        </p>
+
+        {/* CTA – pinned to bottom */}
+        <div className="mt-auto pt-4 border-t">
+          <span className="inline-flex items-center text-sm font-medium text-[#C62828]">
+            Read more
+            <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
 
-function NewsCard({ date, title, summary }: any) {
+function NewsCard({
+  lang,
+  slug,
+  date,
+  title,
+  excerpt,
+  thumbnail,
+}: {
+  lang: "en" | "mr";
+  slug: string;
+  date: string;
+  title: string;
+  excerpt: string;
+  thumbnail: string;
+}) {
   return (
-    <div className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition">
-      <span className="text-sm text-gray-500">{date}</span>
-      <h3 className="font-semibold text-lg mt-3 mb-3">{title}</h3>
-      <p className="text-gray-600">{summary}</p>
-    </div>
+    <Link
+      href={`/${lang}/news/${slug}`}
+      className="group bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col"
+    >
+      {/* Image */}
+      <div className="relative h-40 w-full overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          placeholder="blur"
+          blurDataURL="/placeholder-blur.png"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-1">
+        <span className="text-xs text-gray-500">{date}</span>
+
+        <h3 className="font-semibold text-lg mt-2 mb-3">
+          {title}
+        </h3>
+
+        <p className="text-gray-600 text-sm leading-relaxed">
+          {excerpt}
+        </p>
+
+        {/* CTA – pinned to bottom */}
+        <div className="mt-auto pt-4 border-t">
+          <span className="inline-flex items-center text-sm font-medium text-[#C62828]">
+            Read more
+            <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
+
+
+
 
 function ImpactStat({ value, label }: any) {
   return (
