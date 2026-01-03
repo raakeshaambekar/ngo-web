@@ -15,8 +15,8 @@ export default function Footer({ lang }: { lang: "en" | "mr" }) {
   return (
     <footer className="bg-white text-red-600">
       <div className="max-w-7xl mx-auto px-6 py-6 text-center text-sm">
-        <p className="font-medium">{t.copyright}</p>
-        <p className="opacity-80 mt-1">{t.rights}</p>
+        <p className="font-medium">{t?.copyright??""}</p>
+        <p className="opacity-80 mt-1">{t?.rights??""}</p>
       </div>
     </footer>
   );

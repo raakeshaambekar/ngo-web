@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPrograms } from "../../../lib/program";
 import { getNews } from "../../../lib/news";
+export const runtime = "nodejs";
 
 const HERO_CONTENT = {
   en: {
@@ -21,55 +22,55 @@ const HERO_CONTENT = {
 const PROGRAMS_CONTENT = {
   en: {
     sectionTitle: "Our Core Programs",
-    items: [
-      {
-        slug:"education-support",
-        title: "Education Support",
-        excerpt:
-          "Financial assistance, scholarships, and educational support for deserving students from the Deshastha Maratha community.",
-        thumbnail: "/programs/education.jpg",
-      },
-      {
-        slug:"social-health-assistance",
-        title: "Social & Healthcare Assistance",
-        excerpt:
-          "Medical assistance and social support during health emergencies and difficult life situations.",
-        thumbnail: "/programs/healthcare.jpg",
-      },
-      {
-        slug:"cultural-community-development",
-        title: "Cultural & Community Development",
-        excerpt:
-          "Preservation of cultural traditions, religious activities, and initiatives that strengthen community unity.",
-        thumbnail: "/programs/culture.jpg"
-      },
-    ],
+    // items: [
+    //   {
+    //     slug:"education-support",
+    //     title: "Education Support",
+    //     excerpt:
+    //       "Financial assistance, scholarships, and educational support for deserving students from the Deshastha Maratha community.",
+    //     thumbnail: "/programs/education.jpg",
+    //   },
+    //   {
+    //     slug:"social-health-assistance",
+    //     title: "Social & Healthcare Assistance",
+    //     excerpt:
+    //       "Medical assistance and social support during health emergencies and difficult life situations.",
+    //     thumbnail: "/programs/healthcare.jpg",
+    //   },
+    //   {
+    //     slug:"cultural-community-development",
+    //     title: "Cultural & Community Development",
+    //     excerpt:
+    //       "Preservation of cultural traditions, religious activities, and initiatives that strengthen community unity.",
+    //     thumbnail: "/programs/culture.jpg"
+    //   },
+    // ],
   },
   mr: {
     sectionTitle: "आमचे मुख्य उपक्रम",
-    items: [
-      {
-        slug:"education-support",
-        title: "शैक्षणिक सहाय्य",
-        excerpt:
-          "देशस्थ मराठा समाजातील गरजू विद्यार्थ्यांना शैक्षणिक मदत, शिष्यवृत्ती व शिक्षणासाठी आर्थिक सहाय्य.",
-        thumbnail: "/programs/education.jpg", 
-      },
-      {
-        slug:"social-health-assistance",
-        title: "आरोग्य व सामाजिक सहाय्य",
-        excerpt:
-          "आजारपण, आपत्कालीन परिस्थिती व सामाजिक अडचणींमध्ये समाजबांधवांना मदत.",
-        thumbnail: "/programs/healthcare.jpg",
-      },
-      {
-        slug:"cultural-community-development",
-        title: "सांस्कृतिक व सामाजिक विकास",
-        excerpt:
-          "धार्मिक, सांस्कृतिक उपक्रम, परंपरा जतन व समाजातील एकता वृद्धिंगत करण्याचे कार्य.",
-        thumbnail: "/programs/culture.jpg",
-      },
-    ],
+    // items: [
+    //   {
+    //     slug:"education-support",
+    //     title: "शैक्षणिक सहाय्य",
+    //     excerpt:
+    //       "देशस्थ मराठा समाजातील गरजू विद्यार्थ्यांना शैक्षणिक मदत, शिष्यवृत्ती व शिक्षणासाठी आर्थिक सहाय्य.",
+    //     thumbnail: "/programs/education.jpg", 
+    //   },
+    //   {
+    //     slug:"social-health-assistance",
+    //     title: "आरोग्य व सामाजिक सहाय्य",
+    //     excerpt:
+    //       "आजारपण, आपत्कालीन परिस्थिती व सामाजिक अडचणींमध्ये समाजबांधवांना मदत.",
+    //     thumbnail: "/programs/healthcare.jpg",
+    //   },
+    //   {
+    //     slug:"cultural-community-development",
+    //     title: "सांस्कृतिक व सामाजिक विकास",
+    //     excerpt:
+    //       "धार्मिक, सांस्कृतिक उपक्रम, परंपरा जतन व समाजातील एकता वृद्धिंगत करण्याचे कार्य.",
+    //     thumbnail: "/programs/culture.jpg",
+    //   },
+    // ],
   },
 };
 
@@ -240,11 +241,11 @@ export default async function Home({
       >
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            {hero.title}
+            {hero?.title??""}
           </h1>
 
           <p className="max-w-3xl mx-auto text-lg opacity-90 mb-8">
-            {hero.description}
+            {hero?.description??""}
           </p>
 
           <DonateButton />
@@ -254,7 +255,7 @@ export default async function Home({
       {/* PROGRAMS */}
         <section id="programs" className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 leading-tight py-1"
               style={{
                 background: "linear-gradient(90deg, #C62828, #B8860B)",
                 WebkitBackgroundClip: "text",
@@ -263,8 +264,19 @@ export default async function Home({
             >
             {PROGRAMS_CONTENT[params.lang].sectionTitle}
             </h2>
-
-            <div className="grid md:grid-cols-3 gap-8">
+             <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+              {programs.map((p: any) => (
+                <ProgramCard
+                  key={p._id}
+                  lang={params.lang}
+                  slug={p.slug}
+                  title={p.title[params.lang]}
+                  excerpt={p.excerpt[params.lang]}
+                  thumbnail={p.images?.[0].url}
+                />
+              ))}
+            </div>
+            {/* <div className="grid md:grid-cols-3 gap-8">
             {PROGRAMS_CONTENT[params.lang].items.map((program, index) => (
                 <ProgramCard
                   key={program.slug}
@@ -275,10 +287,9 @@ export default async function Home({
                   thumbnail={program.thumbnail}
                 />
             ))}
-            </div>
+            </div> */}
         </div>
         </section>
-
       {/* IMPACT STRIP */}
       
     <section id="impact" className="bg-red-50 py-12">
@@ -298,7 +309,7 @@ export default async function Home({
 
     <section id="news" className="py-12 bg-gray-100">
         <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
+            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 leading-tight py-1"
               style={{
                 background: "linear-gradient(90deg, #C62828, #B8860B)",
                 WebkitBackgroundClip: "text",
@@ -309,17 +320,17 @@ export default async function Home({
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">
-            {NEWS_CONTENT[params.lang].items.map((item, index) => (
-                <NewsCard
-                key={item.slug}
-                lang={params.lang}
-                slug={item.slug}
-                date={item.date}
-                title={item.title}
-                excerpt={item.excerpt}
-                thumbnail={item.thumbnail}
-                />
-            ))}
+            {news.map((n: any) => (
+            <NewsCard
+              key={n._id}
+              lang={params.lang}
+              slug={n.slug}
+              date={n.date}
+              title={n.title[params.lang]}
+              excerpt={n.excerpt[params.lang]}
+              thumbnail={n.images?.[0]}
+            />
+          ))}
             </div>
         </div>
     </section>
@@ -334,7 +345,7 @@ export default async function Home({
   style={{ backgroundColor: "#FFF8F2" }}
 >
   <div className="max-w-6xl mx-auto px-6">
-    <h2 className="text-3xl md:text-4xl font-semibold text-center mb-14 leading-tight py-1"
+    <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 leading-tight py-1"
       style={{
         background: "linear-gradient(90deg, #C62828, #B8860B)",
         WebkitBackgroundClip: "text",
@@ -407,11 +418,11 @@ export default async function Home({
 >
   <div className="max-w-4xl mx-auto px-6">
     <h2 className="text-3xl font-semibold mb-6">
-      {DONATE_CONTENT[params.lang].title}
+      {DONATE_CONTENT[params.lang]?.title??""}
     </h2>
 
     <p className="max-w-xl mx-auto mb-10 opacity-90 text-lg">
-      {DONATE_CONTENT[params.lang].description}
+      {DONATE_CONTENT[params.lang]?.description??""}
     </p>
 
     <DonateButton />

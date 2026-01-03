@@ -1,10 +1,12 @@
-"use client";
-
+export const runtime = "nodejs";
 import { notFound } from "next/navigation";
 import ImageGallery from "./image-gallery";
+import RichContent from "../../../../../components/RichContent";
+import { getNewsBySlug } from "../../../../../lib/news";
+
 
 const NEWS_DETAILS: Record<string, any> = {
-  "annual-general-meeting": {
+  "annual-general-meeting-2025": {
     date: "2024–2025",
     title: {
       en: "Annual General Meeting Conducted",
@@ -42,17 +44,18 @@ Members actively participated and shared valuable suggestions.
 };
 
 
-export default function NewsDetail({
+
+export default async function NewsDetail({
   params,
 }: {
   params: { lang: "en" | "mr"; slug: string };
 }) {
-  const news = NEWS_DETAILS[params.slug];
+  const news = await getNewsBySlug(params.slug);
 
-  if (!news) return notFound();
+  if (!news) notFound();
 
   return (
-    <section className="py-20">
+    <section className="py-12">
       <div className="max-w-4xl mx-auto px-6">
         {/* Date */}
         <p className="text-sm text-gray-500 mb-3">
@@ -64,19 +67,63 @@ export default function NewsDetail({
           {news.title[params.lang]}
         </h1>
 
-        {/* Description */}
-        <div className="prose max-w-none mb-10">
-          {news.description[params.lang]
-            .trim()
-            .split("\n")
-            .map((p: string, i: number) => (
-              <p key={i}>{p}</p>
-            ))}
+        {/* Optional excerpt */}
+        {news.excerpt?.[params.lang] && (
+          <p className="text-lg text-gray-600 mb-8">
+            {news.excerpt[params.lang]}
+          </p>
+        )}
+
+        {/* Rich Content */}
+        <div className="mb-10">
+          <RichContent content={news.content[params.lang]} />
         </div>
 
         {/* Image Gallery */}
-        <ImageGallery images={news.images} />
+        {news.images?.length > 0 && (
+          <ImageGallery images={news.images} />
+        )}
       </div>
     </section>
   );
 }
+
+
+// export default function NewsDetail({
+//   params,
+// }: {
+//   params: { lang: "en" | "mr"; slug: string };
+// }) {
+//   const news = NEWS_DETAILS[params.slug];
+
+//   if (!news) return notFound();
+
+//   return (
+//     <section className="py-20">
+//       <div className="max-w-4xl mx-auto px-6">
+//         {/* Date */}
+//         <p className="text-sm text-gray-500 mb-3">
+//           {news.date}
+//         </p>
+
+//         {/* Title */}
+//         <h1 className="text-3xl md:text-4xl font-bold mb-6">
+//           {news.title[params.lang]}
+//         </h1>
+
+//         {/* Description */}
+//         <div className="prose max-w-none mb-10">
+//           {news.description[params.lang]
+//             .trim()
+//             .split("\n")
+//             .map((p: string, i: number) => (
+//               <p key={i}>{p}</p>
+//             ))}
+//         </div>
+
+//         {/* Image Gallery */}
+//         <ImageGallery images={news.images} />
+//       </div>
+//     </section>
+//   );
+// }

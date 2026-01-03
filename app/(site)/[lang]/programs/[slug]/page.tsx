@@ -1,6 +1,10 @@
 
-import { notFound } from "next/navigation";
+
 import ImageGallery from "./image-gallery";
+import { getProgramBySlug } from "../../../../../lib/program";
+import { notFound } from "next/navigation";
+import RichContent from "../../../../../components/RichContent";
+export const runtime = "nodejs";
 
 const PROGRAM_DETAILS: Record<string, any> = {
   "education-support": {
@@ -32,32 +36,56 @@ and higher education guidance.
 };
 
 
-export default function ProgramDetail({
-  params,
-}: {
-  params: { lang: "en" | "mr"; slug: string };
-}) {
-  const program = PROGRAM_DETAILS[params.slug];
+// export default function ProgramDetail({
+//   params,
+// }: {
+//   params: { lang: "en" | "mr"; slug: string };
+// }) {
+//   const program = PROGRAM_DETAILS[params.slug];
 
-  if (!program) return notFound();
+//   if (!program) return notFound();
+
+//   return (
+//     <section className="py-20">
+//       <div className="max-w-4xl mx-auto px-6">
+//         <h1 className="text-3xl md:text-4xl font-bold mb-6">
+//           {program.title[params.lang]}
+//         </h1>
+
+//         <div className="prose max-w-none mb-10">
+//           {program.description[params.lang]
+//             .trim()
+//             .split("\n")
+//             .map((p: string, i: number) => (
+//               <p key={i}>{p}</p>
+//             ))}
+//         </div>
+
+//         {/* IMAGE GALLERY */}
+//         <ImageGallery images={program.images} />
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+export default async function ProgramDetail({ params }: any) {
+  const program = await getProgramBySlug(params.slug);
+
+  if (!program) notFound();
 
   return (
-    <section className="py-20">
+    <section className="py-12">
       <div className="max-w-4xl mx-auto px-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-6">
+        <h1 className="text-3xl font-bold mb-6">
           {program.title[params.lang]}
         </h1>
 
-        <div className="prose max-w-none mb-10">
-          {program.description[params.lang]
-            .trim()
-            .split("\n")
-            .map((p: string, i: number) => (
-              <p key={i}>{p}</p>
-            ))}
+        <div className="mb-10">
+          <RichContent content={program.content[params.lang]} />
         </div>
 
-        {/* IMAGE GALLERY */}
         <ImageGallery images={program.images} />
       </div>
     </section>
