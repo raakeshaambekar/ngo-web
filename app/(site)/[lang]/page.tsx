@@ -4,202 +4,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPrograms } from "../../../lib/program";
 import { getNews } from "../../../lib/news";
+import { ABOUT_HISTORY,HERO_CONTENT,IMPACT_CONTENT,CONTACT_CONTENT } from "./content/history";
 export const runtime = "nodejs";
-
-const HERO_CONTENT = {
-  en: {
-    title: "Empowering the Deshastha Maratha Community",
-    description:
-      "We are a registered community organization dedicated to education support, social welfare, cultural preservation, and collective upliftment of the Deshastha Maratha community across Mumbai and Maharashtra.",
-  },
-  mr: {
-    title: "देशस्थ मराठा समाज सशक्तीकरण",
-    description:
-      "मुंबई देशस्थ मराठा ज्ञाती–धर्म संस्था ही शिक्षण सहाय्य, सामाजिक कार्य, सांस्कृतिक जतन व समाजाची एकता वृद्धिंगत करण्यासाठी कार्य करणारी नोंदणीकृत संस्था आहे.",
-  },
-};
 
 const PROGRAMS_CONTENT = {
   en: {
     sectionTitle: "Our Core Programs",
-    // items: [
-    //   {
-    //     slug:"education-support",
-    //     title: "Education Support",
-    //     excerpt:
-    //       "Financial assistance, scholarships, and educational support for deserving students from the Deshastha Maratha community.",
-    //     thumbnail: "/programs/education.jpg",
-    //   },
-    //   {
-    //     slug:"social-health-assistance",
-    //     title: "Social & Healthcare Assistance",
-    //     excerpt:
-    //       "Medical assistance and social support during health emergencies and difficult life situations.",
-    //     thumbnail: "/programs/healthcare.jpg",
-    //   },
-    //   {
-    //     slug:"cultural-community-development",
-    //     title: "Cultural & Community Development",
-    //     excerpt:
-    //       "Preservation of cultural traditions, religious activities, and initiatives that strengthen community unity.",
-    //     thumbnail: "/programs/culture.jpg"
-    //   },
-    // ],
   },
   mr: {
     sectionTitle: "आमचे मुख्य उपक्रम",
-    // items: [
-    //   {
-    //     slug:"education-support",
-    //     title: "शैक्षणिक सहाय्य",
-    //     excerpt:
-    //       "देशस्थ मराठा समाजातील गरजू विद्यार्थ्यांना शैक्षणिक मदत, शिष्यवृत्ती व शिक्षणासाठी आर्थिक सहाय्य.",
-    //     thumbnail: "/programs/education.jpg", 
-    //   },
-    //   {
-    //     slug:"social-health-assistance",
-    //     title: "आरोग्य व सामाजिक सहाय्य",
-    //     excerpt:
-    //       "आजारपण, आपत्कालीन परिस्थिती व सामाजिक अडचणींमध्ये समाजबांधवांना मदत.",
-    //     thumbnail: "/programs/healthcare.jpg",
-    //   },
-    //   {
-    //     slug:"cultural-community-development",
-    //     title: "सांस्कृतिक व सामाजिक विकास",
-    //     excerpt:
-    //       "धार्मिक, सांस्कृतिक उपक्रम, परंपरा जतन व समाजातील एकता वृद्धिंगत करण्याचे कार्य.",
-    //     thumbnail: "/programs/culture.jpg",
-    //   },
-    // ],
-  },
-};
-
-const IMPACT_CONTENT = {
-  en: {
-    items: [
-      {
-        value: "1000+",
-        label: "Community Members Supported",
-      },
-      {
-        value: "10+",
-        label: "Years of Service",
-      },
-      {
-        value: "100+",
-        label: "Active Members & Volunteers",
-      },
-    ],
-  },
-  mr: {
-    items: [
-      {
-        value: "१०००+",
-        label: "समाजबांधवांना सहाय्य",
-      },
-      {
-        value: "१०+",
-        label: "सेवेची वर्षे",
-      },
-      {
-        value: "१००+",
-        label: "सक्रिय सभासद व स्वयंसेवक",
-      },
-    ],
   },
 };
 
 const NEWS_CONTENT = {
   en: {
     sectionTitle: "Latest News & Updates",
-    items: [
-      {
-        date: "2024–2025",
-        slug: "annual-general-meeting",
-        title: "Annual General Meeting Conducted",
-        excerpt:
-          "The Annual General Meeting was conducted in accordance with statutory guidelines, reviewing organizational activities and future plans.",
-        thumbnail: "/news/agm.jpg",
-      },
-      {
-        date: "2024–2025",
-        slug: "audit-finance-report",
-        title: "Audited Financial Report Approved",
-        excerpt:
-          "The audited income and expenditure report for the year was presented and approved by members.",
-        thumbnail: "/news/afr.png",
-      },
-      {
-        date: "2024–2025",
-        slug: "executive-committee-announced",
-        title: "Executive Committee Announced",
-        excerpt:
-          "The executive committee and office bearers for the current term were formally announced.",
-        thumbnail: "/news/ecf.jpg",
-      },
-    ],
   },
   mr: {
     sectionTitle: "ताज्या बातम्या व घडामोडी",
-    items: [
-      {
-        date: "२०२४–२०२५",
-        slug: "annual-general-meeting",
-        title: "वार्षिक सर्वसाधारण सभा पार पडली",
-        excerpt:
-          "नियमानुसार वार्षिक सर्वसाधारण सभा पार पडून संस्थेच्या कार्याचा व भावी योजनांचा आढावा घेण्यात आला.",
-        thumbnail: "/news/agm.jpg",
-      },
-      {
-        date: "२०२४–२०२५",
-        slug: "audit-finance-report",
-        title: "लेखापरीक्षित आर्थिक अहवाल मंजूर",
-        excerpt:
-          "संस्थेचा लेखापरीक्षित जमा-खर्च अहवाल सभासदांनी मंजूर केला.",
-        thumbnail: "/news/afr.png",
-      },
-      {
-        date: "२०२४–२०२५",
-        slug: "executive-committee-announced",
-        title: "नवीन कार्यकारिणी जाहीर",
-        excerpt:
-          "चालू कार्यकाळासाठी संस्थेची कार्यकारिणी व पदाधिकारी जाहीर करण्यात आले.",
-        thumbnail: "/news/ecf.jpg",
-      },
-    ],
-  },
-};
-
-const CONTACT_CONTENT = {
-  en: {
-    sectionTitle: "Contact Us",
-    phoneLabel: "Phone",
-    emailLabel: "Email",
-    addressLabel: "Address",
-    phone: "+91 90000 00000",
-    email: "contact@mdmgds.org",
-    address: [
-      "Mumbai Deshastha Maratha Dhyati Dharm Sanstha",
-      "Ground Floor, Building No. 6,",
-      "Raghunath Maharaj Street,",
-      "Near Mandavi Koliwada,",
-      "Masjid Bunder, Mumbai – 400003.",
-    ],
-  },
-  mr: {
-    sectionTitle: "संपर्क साधा",
-    phoneLabel: "दूरध्वनी",
-    emailLabel: "ई-मेल",
-    addressLabel: "पत्ता",
-    phone: "+91 90000 00000",
-    email: "contact@mdmgds.org",
-    address: [
-      "मुंबई देशस्थ मराठा ज्ञाती धर्म संस्था",
-      "तळमजला, इमारत क्र. ६,",
-      "रघुनाथ महाराज मार्ग,",
-      "मांडवी कोळीवाडा जवळ,",
-      "मस्जिद बंदर, मुंबई – ४००००३.",
-    ],
   },
 };
 
@@ -225,6 +47,7 @@ export default async function Home({
   params: { lang: "en" | "mr" };
 }) {
   const hero = HERO_CONTENT[params.lang];
+  const aboutUs = ABOUT_HISTORY[params.lang];
   const programs = await getPrograms();
   const news = await getNews();
 
@@ -252,10 +75,76 @@ export default async function Home({
         </div>
       </section>
 
+      <section
+  id="about-history"
+  className="py-10 bg-white"
+>
+  {/* Constrain width for Marathi readability */}
+  <div className="max-w-2xl mx-auto px-6">
+
+    {/* Title: heritage authority + divider */}
+    <div className="text-center mb-8">
+      <h2
+        className="text-3xl md:text-4xl font-heritage text-red-800 leading-tight"
+      >
+        {aboutUs.title}
+      </h2>
+
+      {/* Subtle gold divider */}
+      <div className="w-16 h-[2px] bg-[#B8860B] mx-auto mt-3" />
+    </div>
+
+    {/* Body content */}
+    <div
+      className={`text-lg md:text-xl space-y-10 ${
+        params.lang === "mr"
+          ? "font-mr leading-[1.75] text-gray-800"
+          : "font-en leading-relaxed text-gray-800"
+      }`}
+      style={{ wordSpacing: "0.06em",fontSize:"1.1rem"}}
+    >
+      {aboutUs.paragraphs.map((para: any, i: number) => {
+        const isHistoricEvent = typeof para !== "string" && i === 1;
+
+        return (
+          <p
+            key={i}
+            className={`${
+              isHistoricEvent
+                ? "!mt-6 border-l-4 border-[#B8860B] pl-4 bg-[#FFF8F0]"
+                : "!mt-6 "
+            }`}
+          >
+            {typeof para === "string" ? (
+              para
+            ) : (
+              para.parts.map((part: any, idx: number) => (
+                <span
+                  key={idx}
+                  className={
+                    part.type === "highlight"
+                      ? "font-heritage text-[#B8860B] font-semibold"
+                      : ""
+                  }
+                >
+                  {part.text}
+                </span>
+              ))
+            )}
+          </p>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+      
+
       {/* PROGRAMS */}
-        <section id="programs" className="py-16 bg-gray-50">
+        <section id="programs" className="py-6 " style={{ backgroundColor: "rgb(249 238 228)" }}>
         <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 leading-tight py-1"
+            <h2 className="text-3xl md:text-4xl font-semibold text-center leading-tight py-1"
               style={{
                 background: "linear-gradient(90deg, #C62828, #B8860B)",
                 WebkitBackgroundClip: "text",
@@ -264,6 +153,8 @@ export default async function Home({
             >
             {PROGRAMS_CONTENT[params.lang].sectionTitle}
             </h2>
+            <div className="w-16 h-[2px] bg-[#B8860B] mx-auto mt-3 mb-6" />
+    
              <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
               {programs.map((p: any) => (
                 <ProgramCard
@@ -292,7 +183,8 @@ export default async function Home({
         </section>
       {/* IMPACT STRIP */}
       
-    <section id="impact" className="bg-red-50 py-12">
+    <section id="impact" className="bg-white py-10">
+      
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
             {IMPACT_CONTENT[params.lang].items.map((item, index) => (
             <ImpactStat
@@ -307,9 +199,9 @@ export default async function Home({
 
       {/* NEWS */}
 
-    <section id="news" className="py-12 bg-gray-100">
+    <section id="news" className="py-6 " style={{ backgroundColor: "rgb(249 238 228)" }}>
         <div className="max-w-6xl mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 leading-tight py-1"
+            <h2 className="text-3xl md:text-4xl font-semibold text-center  leading-tight py-1"
               style={{
                 background: "linear-gradient(90deg, #C62828, #B8860B)",
                 WebkitBackgroundClip: "text",
@@ -318,7 +210,7 @@ export default async function Home({
             >
             {NEWS_CONTENT[params.lang].sectionTitle}
             </h2>
-
+            <div className="w-16 h-[2px] bg-[#B8860B] mx-auto mt-3 mb-6" />
             <div className="grid md:grid-cols-3 gap-8">
             {news.map((n: any) => (
             <NewsCard
@@ -338,97 +230,167 @@ export default async function Home({
 
      
       {/* CONTACT US */}
-    {/* CONTACT US */}
+  {/* CONTACT US */}
 <section
   id="contact"
-  className="py-12"
-  style={{ backgroundColor: "#FFF8F2" }}
+  className="py-10 bg-[#FFF6ED]"
 >
   <div className="max-w-6xl mx-auto px-6">
-    <h2 className="text-3xl md:text-4xl font-semibold text-center mb-10 leading-tight py-1"
-      style={{
-        background: "linear-gradient(90deg, #C62828, #B8860B)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-      }}
-    >
-      {CONTACT_CONTENT[params.lang].sectionTitle}
-    </h2>
 
-    <div className="bg-white rounded-2xl shadow-sm border p-10 md:p-14">
-      <div className="grid md:grid-cols-2 gap-12">
+    {/* Section Header */}
+    <div className="text-center mb-12">
+      <h2
+        className="text-3xl md:text-4xl font-semibold text-red-800 leading-tight"
+      >
+        {CONTACT_CONTENT[params.lang].sectionTitle}
+      </h2>
+
+      <div className="w-16 h-[2px] bg-[#B8860B] mx-auto mt-3" />
+
+      <p className="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+        {CONTACT_CONTENT[params.lang].sectionSubtitle ??
+          "Reach out to us for queries, support, or collaboration"}
+      </p>
+    </div>
+
+    {/* Contact Card */}
+    <div className="bg-white rounded-2xl border shadow-md border-t-[5px] border-[#B8860B] p-8 md:p-10">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
         {/* Left: Phone & Email */}
-        <div className="space-y-8">
+        <div className="space-y-12">
+
           <div>
-            <p
-              className="font-semibold mb-1"
-              style={{ color: "#C62828" }}
-            >
+            <p className="font-semibold text-red-700 mb-1">
               {CONTACT_CONTENT[params.lang].phoneLabel}
             </p>
-            <p className="text-gray-800 text-lg">
+            <a
+              href={`tel:${CONTACT_CONTENT[params.lang].phone}`}
+              className="text-lg text-gray-800 hover:text-[#B8860B] transition"
+            >
               {CONTACT_CONTENT[params.lang].phone}
-            </p>
+            </a>
           </div>
 
           <div>
-            <p
-              className="font-semibold mb-1"
-              style={{ color: "#C62828" }}
-            >
+            <p className="font-semibold text-red-700 mb-1">
               {CONTACT_CONTENT[params.lang].emailLabel}
             </p>
-            <p className="text-gray-800 text-lg">
+            <a
+              href={`mailto:${CONTACT_CONTENT[params.lang].email}`}
+              className="text-lg text-gray-800 hover:text-[#B8860B] transition"
+            >
               {CONTACT_CONTENT[params.lang].email}
-            </p>
+            </a>
           </div>
+
         </div>
 
         {/* Right: Address */}
         <div>
-          <p
-            className="font-semibold mb-3"
-            style={{ color: "#C62828" }}
-          >
+          <div className="font-medium text-gray-900">
+            {CONTACT_CONTENT[params.lang].addressHeader}
+          </div>
+          <div className="mt-1 underline">
             {CONTACT_CONTENT[params.lang].addressLabel}
-          </p>
+          </div>
 
-          <address className="not-italic text-gray-800 leading-relaxed text-lg">
+          <address className="not-italic text-gray-800 leading-relaxed text-lg space-y-1">
             {CONTACT_CONTENT[params.lang].address.map((line, index) => (
               <div key={index}>{line}</div>
             ))}
           </address>
+
+          {/* Optional Map Link */}
+          <div className="mt-4">
+            <a
+              href={CONTACT_CONTENT[params.lang].mapLink ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-sm text-red-700 hover:text-[#B8860B] transition"
+            >
+              View on Google Maps →
+            </a>
+          </div>
         </div>
 
       </div>
+
     </div>
   </div>
 </section>
 
+{/* SUPPORT OUR MISSION – UPI ONLY */}
+<section id="donate" className="py-16 bg-gradient-to-r from-[#C62828] to-[#D4AF37]">
+  <div className="max-w-5xl mx-auto px-6 text-center text-white">
 
-      {/* DONATION CTA */}
-      {/* DONATE CTA */}
-<section
-  id="donate"
-  className="py-12 text-white text-center"
-  style={{
-    background: "linear-gradient(90deg, #C62828 0%, #D4AF37 100%)",
-  }}
->
-  <div className="max-w-4xl mx-auto px-6">
-    <h2 className="text-3xl font-semibold mb-6">
-      {DONATE_CONTENT[params.lang]?.title??""}
+    {/* Title */}
+    <h2 className="text-3xl md:text-4xl font-semibold mb-4">
+      {DONATE_CONTENT[params.lang]?.title ?? ""}
     </h2>
 
-    <p className="max-w-xl mx-auto mb-10 opacity-90 text-lg">
-      {DONATE_CONTENT[params.lang]?.description??""}
+    {/* Description */}
+    <p className="max-w-2xl mx-auto mb-12 text-base md:text-lg opacity-95">
+      {DONATE_CONTENT[params.lang]?.description ?? ""}
     </p>
 
-    <DonateButton />
+    {/* QR GRID */}
+    <div className="grid md:grid-cols-2 gap-8 justify-center">
+
+      {/* GS Mahanagar QR */}
+      <div className="bg-white text-gray-800 rounded-2xl p-6 shadow-lg">
+
+        <p className="font-semibold text-red-700 mb-4">
+          GS Mahanagar Co-operative Bank
+        </p>
+
+        <img
+          src="/donate/qr-gs-mahanagar_1.jpg"
+          alt="UPI QR GS Mahanagar Bank"
+          className="w-52 mx-auto mb-4"
+        />
+
+        <p className="text-sm text-gray-600">
+          Scan with any UPI app
+        </p>
+
+      </div>
+
+
+      {/* Bank of Baroda QR */}
+      <div className="bg-white text-gray-800 rounded-2xl p-6 shadow-lg">
+
+        <p className="font-semibold text-red-700 mb-4">
+          Bank of Baroda (BHIM Baroda Pay)
+        </p>
+
+        <img
+          src="/donate/qr-baroda_1.jpg"
+          alt="UPI QR Bank of Baroda"
+          className="w-52 mx-auto mb-4"
+        />
+
+        <p className="text-sm text-gray-600">
+          UPI ID
+        </p>
+
+        <p className="font-medium text-gray-900">
+          mumbai98671546@barodampay
+        </p>
+
+      </div>
+
+    </div>
+
+    {/* Trust Note */}
+    <p className="mt-10 text-sm opacity-90">
+      Donations are received by Mumbai Deshastha Maratha Dhyati Dharma Sanstha
+    </p>
+
   </div>
 </section>
-
+  
 
       
     </>

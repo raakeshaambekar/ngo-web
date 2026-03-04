@@ -50,7 +50,7 @@ export default function Header({ lang }: { lang: "en" | "mr" }) {
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link href={`/${lang}#programs`}>{t.programs}</Link>
             <Link href={`/${lang}#news`}>{t.news}</Link>
-            <Link href={`/${lang}#about`}>{t.about}</Link>
+            <Link href={`/${lang}#about-history`}>{t.about}</Link>
             <Link href={`/${lang}#contact`}>{t.contact}</Link>
 
             <Link
@@ -61,7 +61,7 @@ export default function Header({ lang }: { lang: "en" | "mr" }) {
             </Link>
 
             <Link
-              href={`/${lang}/donate`}
+              href={`/${lang}#donate`}
               className="bg-red-600 text-white px-4 py-2 rounded-full"
             >
               {t.donate}

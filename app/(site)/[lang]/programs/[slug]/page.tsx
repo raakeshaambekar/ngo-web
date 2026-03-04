@@ -86,7 +86,11 @@ export default async function ProgramDetail({ params }: any) {
           <RichContent content={program.content[params.lang]} />
         </div>
 
-        <ImageGallery images={program.images} />
+        <ImageGallery
+          images={Object.values(program.images as Record<string, { url: string }>).map(
+            (img) => img.url
+          )}
+        />
       </div>
     </section>
   );
